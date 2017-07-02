@@ -1,6 +1,6 @@
 
 public class Node {
-	
+	Game gr;
 	int col, row; 
 	
 	
@@ -8,9 +8,15 @@ public class Node {
 	float g; 
 	float h; 
 	
-	public Node(){}
+	public Node(Game gr){
+		this.gr = gr;
+	}
 	
-	public void update(){}
+	public void update(){
+		
+	}
 	
-	public void draw(){}
+	public void draw(){
+		
+	}
 }

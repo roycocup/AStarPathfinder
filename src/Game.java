@@ -22,12 +22,11 @@ public class Game extends PApplet {
 	}
 	
 	public void setup(){
-		grid = new Grid();
+		grid = new Grid(this);
 		
 		int divider = 10;
 		numRows = height / divider;
 		numCols = width / divider;
-		
 		
 		createNodes();
 	}
@@ -35,7 +34,6 @@ public class Game extends PApplet {
 	public void draw(){
 		background(0);
 		grid.draw();
-		
 	}
 	
 	void createNodes(){
@@ -43,7 +41,7 @@ public class Game extends PApplet {
 		
 		for(int i=0; i < numRows; i++ ){
 			for(int j=0; j<numCols; j++){
-				Node n = new Node();
+				Node n = new Node(this);
 				n.col = j;
 				n.row = i;
 				nodes.put(new int[]{j,i}, n);
