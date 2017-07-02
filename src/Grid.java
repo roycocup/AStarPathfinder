@@ -2,7 +2,7 @@ import processing.core.PVector;
 
 public class Grid {
 	Game g;
-	PVector pos; 
+	PVector[] pos; 
 	
 	public Grid(Game g){
 		this.g = g;
