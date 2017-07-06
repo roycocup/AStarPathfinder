@@ -12,35 +12,35 @@ public class Game extends PApplet {
 	HashMap<int[], Node> nodes;
 	Vector<Node> openSet;
 	Vector<Node> closedSet;
-	
-	Grid grid;
+
+
 	int numRows;
 	int numCols;
-	
+	int w = 10;
+
 	public void settings(){
 		size(600, 600);
 	}
-	
+
 	public void setup(){
-		grid = new Grid(this);
-		
-		int divider = 10;
-		numRows = height / divider;
-		numCols = width / divider;
-		
+
+
+		numRows = height / w;
+		numCols = width / w;
+
 		createNodes();
 	}
-	
+
 	public void draw(){
 		background(0);
-		grid.draw();
+		drawGrid();
 	}
-	
+
 	void createNodes(){
 		nodes = new HashMap<int[], Node>();
-		
+
 		for(int i=0; i < numRows; i++ ){
-			for(int j=0; j<numCols; j++){
+			for(int j=0; j < numCols; j++){
 				Node n = new Node(this);
 				n.col = j;
 				n.row = i;
@@ -48,8 +48,16 @@ public class Game extends PApplet {
 			}
 		}
 	}
-	
-	
+
+	void drawGrid(){
+		stroke(255);
+		for(int i=0; i < numRows; i++ ){
+			for(int j=0; j < numCols; j++){
+				line(i*w, j*w, w, w);
+			}
+		}
+	}
+
 	public static void main(String[] args) {
 		PApplet.main("Game");
 	}
