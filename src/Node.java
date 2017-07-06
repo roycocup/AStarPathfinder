@@ -22,6 +22,10 @@ public class Node {
 		this.col = col; 
 		this.row = row;
 		this.pos = new PVector(this.col,this.row);
+		setup();
+	}
+	
+	void setup(){
 		setG();
 		setH();
 		setF();
@@ -45,9 +49,7 @@ public class Node {
 			h = pos.dist(gr.goal.pos);
 		} else {
 			h = 0;
-		}
-		
-		
+		}	
 	}
 	
 	void findNeighbours(){

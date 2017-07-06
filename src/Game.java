@@ -3,6 +3,7 @@ import java.util.HashMap;
 import java.util.Vector;
 
 import processing.core.PApplet;
+import processing.core.PVector;
 
 public class Game extends PApplet {
 
@@ -29,7 +30,7 @@ public class Game extends PApplet {
 		goal = new Node(this, numCols, numRows);
 		start = new Node(this, 0, 0);
 		
-		createNodes();
+		//createNodes();
 		openSet.add(start);
 	}
 
@@ -72,7 +73,9 @@ public class Game extends PApplet {
         }
 	}
 	
-	Boolean isInOpenSet(){
+	Boolean isInOpenSet(Node n){
+		if(openSet.contains(n))
+			return true;
 		return false;
 	}
 	
@@ -98,33 +101,30 @@ public class Game extends PApplet {
 		openSet.remove(index);
         closedSet.add(current);
 
-        paintSquares();
-        
-        
         for(int i = 0; i < current.neighbours.size(); i++){
-        	if (isInClosedSet(new Node(this, (int) current.neighbours.get(i).x, (int) current.neighbours.get(i).y))){
+        	
+        	Node n = new Node(this, (int) current.neighbours.get(i).x, (int) current.neighbours.get(i).y);
+
+        	if (isInClosedSet(n)){
         		continue;
         	}
+        	
+        	if(!isInOpenSet(n)){
+        		openSet.add(n);
+        	}
+        	
+        	float gScore = current.g + 1; 
+        	if (gScore >= n.g ){
+        		continue;
+        	}
+        	
+        	n.cameFrom = current;
+        	n.g = gScore;
+        	n.h = PVector.dist(n.pos, goal.pos);
+        	n.f = gScore + n.h;
+        	
+        	paintSquares();
         }
-        
-        /**
-        for each neighbor of current
-	        if neighbor in closedSet
-	            continue		// Ignore the neighbor which is already evaluated.
-	
-	        if neighbor not in openSet	// Discover a new node
-	            openSet.Add(neighbor)
-	        
-	        // The distance from start to a neighbor
-	        tentative_gScore := gScore[current] + dist_between(current, neighbor)
-	        if tentative_gScore >= gScore[neighbor]
-	            continue		// This is not a better path.
-	
-	        // This path is the best until now. Record it!
-	        cameFrom[neighbor] := current
-	        gScore[neighbor] := tentative_gScore
-	        fScore[neighbor] := gScore[neighbor] + heuristic_cost_estimate(neighbor, goal)
-         **/
         
         return false;
  
